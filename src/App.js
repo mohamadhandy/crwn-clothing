@@ -1,4 +1,5 @@
 import React from "react";
+import "./categories.scss"
 
 const App = () => {
   const categories = [

@@ -1,6 +1,5 @@
 import React from "react";
-import "./categories.scss";
-import CategoryItem from "./components/category-item/CategoryItem";
+import Categories from "./components/categories/Categories";
 
 const App = () => {
   const categories = [
@@ -246,11 +245,9 @@ const App = () => {
     },
   ];
   return (
-    <div className="categories-container">
-      {categories.map((category, index) => (
-        <CategoryItem category={category} key={index} />
-      ))}
-    </div>
+    <>
+      <Categories categories={categories} />
+    </>
   );
 };
 

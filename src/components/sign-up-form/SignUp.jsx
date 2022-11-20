@@ -3,7 +3,7 @@ import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase";
-import swal from "sweetalert";
+import { callSwal } from "../../utils/sweetalert/sweetalert";
 
 const defaultFormFields = {
   displayName: "",
@@ -15,30 +15,34 @@ const SignUp = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      swal({ text: "Password do not match!" });
+      callSwal("Error", `Password do not match`, "error");
       return;
     }
     try {
-      const response = await createAuthUserWithEmailAndPassword(
+      const { user } = await createAuthUserWithEmailAndPassword(
         email,
         password
       );
-      if (response) {
-        try {
-          const { user } = response
-          user.displayName = displayName
-          const result = await createUserDocumentFromAuth(response.user);
-          console.log("result", result)
-        } catch (error) {
-          console.log("error when creating user", error);
-        }
-      }
+      await createUserDocumentFromAuth(user, { displayName });
+      callSwal(
+        "Success create user",
+        `Welcome ${email} to crwn clothing`,
+        "success"
+      );
     } catch (error) {
+      if (error.code === "auth/email-already-in-use") {
+        callSwal("Error", `Email already in use`, "error");
+      }
       console.log("error", error);
     }
+    resetFormFields();
   };
 
   const handleChange = (e) => {

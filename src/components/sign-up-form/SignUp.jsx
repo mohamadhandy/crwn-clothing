@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { createAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase";
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocumentFromAuth,
+} from "../../utils/firebase/firebase";
+import swal from "sweetalert";
 
 const defaultFormFields = {
   displayName: "",
@@ -13,11 +17,29 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
-      const response = await createAuthUserWithEmailAndPassword(email, password)
-      console.log("response", response)
+    if (password !== confirmPassword) {
+      swal({ text: "Password do not match!" });
+      return;
     }
-  }
+    try {
+      const response = await createAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+      if (response) {
+        try {
+          const { user } = response
+          user.displayName = displayName
+          const result = await createUserDocumentFromAuth(response.user);
+          console.log("result", result)
+        } catch (error) {
+          console.log("error when creating user", error);
+        }
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;

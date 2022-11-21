@@ -4,7 +4,9 @@ import {
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase";
 import { callSwal } from "../../utils/sweetalert/sweetalert";
+import Button from "../button/Button";
 import FormInput from "../form-input/FormInput";
+import "./Signup.scss"
 
 const defaultFormFields = {
   displayName: "",
@@ -52,8 +54,9 @@ const SignUp = () => {
     setFormFields({ ...formFields, [name]: value });
   };
   return (
-    <div>
-      <h1>Signup with your email and password</h1>
+    <div className="sign-up-container">
+      <h2>Don't have an account</h2>
+      <span>Sign up with your email & password</span>
       <form onSubmit={handleSubmit}>
         <FormInput
           label={"Display Name"}
@@ -87,7 +90,8 @@ const SignUp = () => {
           name={"confirmPassword"}
           value={confirmPassword}
         />
-        <button type="submit">Sign up</button>
+        <Button type="submit">Sign up</Button>
+        {/* <button type="submit">Sign up</button> */}
       </form>
     </div>
   );

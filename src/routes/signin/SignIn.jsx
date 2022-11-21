@@ -1,3 +1,4 @@
+import Button from "../../components/button/Button";
 import SignUp from "../../components/sign-up-form/SignUp";
 import {
   signInWithGooglePopup,
@@ -14,7 +15,8 @@ const SignIn = () => {
     <>
       <div>
         <h1>Sign in page</h1>
-        <button onClick={logGoogleUser}>Sign in with google popup</button>
+        <Button buttonType={"google"} onClick={logGoogleUser}>Sign in with google popup</Button>
+        {/* <button onClick={logGoogleUser}>Sign in with google popup</button> */}
       </div>
       <SignUp />
     </>

@@ -6,7 +6,8 @@ import {
 import { callSwal } from "../../utils/sweetalert/sweetalert";
 import Button from "../button/Button";
 import FormInput from "../form-input/FormInput";
-import "./Signup.scss"
+import HeaderSigninSignup from "../header-signin-signup/HeaderSigninSignup";
+import "./Signup.scss";
 
 const defaultFormFields = {
   displayName: "",
@@ -55,8 +56,10 @@ const SignUp = () => {
   };
   return (
     <div className="sign-up-container">
-      <h2>Don't have an account</h2>
-      <span>Sign up with your email & password</span>
+      <HeaderSigninSignup
+        title={"Don't have an account"}
+        subTitle={"Sign up with your email & password"}
+      />
       <form onSubmit={handleSubmit}>
         <FormInput
           label={"Display Name"}

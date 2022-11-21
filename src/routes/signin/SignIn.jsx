@@ -1,4 +1,5 @@
 import Button from "../../components/button/Button";
+import HeaderSigninSignup from "../../components/header-signin-signup/HeaderSigninSignup";
 import SignUp from "../../components/sign-up-form/SignUp";
 import {
   signInWithGooglePopup,
@@ -14,9 +15,13 @@ const SignIn = () => {
   return (
     <>
       <div>
-        <h1>Sign in page</h1>
-        <Button buttonType={"google"} onClick={logGoogleUser}>Sign in with google popup</Button>
-        {/* <button onClick={logGoogleUser}>Sign in with google popup</button> */}
+        <HeaderSigninSignup
+          title={"I already have an account"}
+          subTitle={"Sign in with your email and password"}
+        />
+        <Button buttonType={"google"} onClick={logGoogleUser}>
+          Sign in with google popup
+        </Button>
       </div>
       <SignUp />
     </>

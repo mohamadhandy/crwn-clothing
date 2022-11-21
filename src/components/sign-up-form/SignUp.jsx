@@ -4,6 +4,7 @@ import {
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase";
 import { callSwal } from "../../utils/sweetalert/sweetalert";
+import FormInput from "../form-input/FormInput";
 
 const defaultFormFields = {
   displayName: "",
@@ -54,43 +55,38 @@ const SignUp = () => {
     <div>
       <h1>Signup with your email and password</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="displayName">Display Name</label>
-        <input
-          required
-          id="displayName"
+        <FormInput
+          label={"Display Name"}
+          id={"displayName"}
           type="text"
           onChange={handleChange}
-          name="displayName"
+          name={"displayName"}
           value={displayName}
         />
-
-        <label>Email</label>
-        <input
-          required
+        <FormInput
+          label={"Email"}
+          id={"email"}
           type="email"
           onChange={handleChange}
+          name={"email"}
           value={email}
-          name="email"
         />
-
-        <label>Password</label>
-        <input
-          required
+        <FormInput
+          label={"Password"}
+          id={"password"}
           type="password"
           onChange={handleChange}
-          name="password"
+          name={"password"}
           value={password}
         />
-
-        <label>Confirm Password</label>
-        <input
-          required
+        <FormInput
+          label={"Confirm Password"}
+          id={"confirmPassword"}
           type="password"
           onChange={handleChange}
-          name="confirmPassword"
+          name={"confirmPassword"}
           value={confirmPassword}
         />
-
         <button type="submit">Sign up</button>
       </form>
     </div>

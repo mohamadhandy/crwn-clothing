@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./Signin.scss";
 import Button from "../button/Button";
 import HeaderSigninSignup from "../header-signin-signup/HeaderSigninSignup";
@@ -9,6 +9,7 @@ import {
   signInUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase";
 import { callSwal } from "../../utils/sweetalert/sweetalert";
+import { UserContext } from "../../contexts/UserContext";
 
 const defaultSigninFields = {
   email: "",
@@ -18,6 +19,7 @@ const defaultSigninFields = {
 const Signin = () => {
   const [signInFields, setSigninFields] = useState(defaultSigninFields);
   const { email, password } = signInFields;
+  const { setCurrentUser } = useContext(UserContext);
   const resetFields = () => {
     setSigninFields(defaultSigninFields);
   };
@@ -40,6 +42,7 @@ const Signin = () => {
           "success"
         );
       }
+      setCurrentUser(user);
       resetFields();
     } catch (error) {
       if (error.code) {
@@ -75,7 +78,11 @@ const Signin = () => {
         />
         <div className="buttons-container">
           <Button type="submit">Sign In</Button>
-          <Button buttonType={"google"} type="button" onClick={signInWithGoogle}>
+          <Button
+            buttonType={"google"}
+            type="button"
+            onClick={signInWithGoogle}
+          >
             Google Signin
           </Button>
         </div>

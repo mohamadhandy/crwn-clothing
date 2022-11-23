@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./Signin.scss"
 import Button from "../button/Button";
 import HeaderSigninSignup from "../header-signin-signup/HeaderSigninSignup";
 import FormInput from "../form-input/FormInput";
@@ -17,6 +18,9 @@ const defaultSigninFields = {
 const Signin = () => {
   const [signInFields, setSigninFields] = useState(defaultSigninFields);
   const { email, password } = signInFields;
+  const resetFields = () => {
+    setSigninFields(defaultSigninFields);
+  };
   const signInWithGoogle = async () => {
     const { user } = await signInWithGooglePopup();
     await createUserDocumentFromAuth(user);
@@ -36,6 +40,7 @@ const Signin = () => {
           "success"
         );
       }
+      resetFields();
     } catch (error) {
       if (error.code) {
         callSwal("Error occurs", `Error ${error.code}`, "error");
@@ -43,12 +48,12 @@ const Signin = () => {
     }
   };
   return (
-    <div>
+    <div className="sign-in-container">
+      <HeaderSigninSignup
+        title={"I already have an account"}
+        subTitle={"Sign in with your email and password"}
+      />
       <form onSubmit={handleSubmit}>
-        <HeaderSigninSignup
-          title={"I already have an account"}
-          subTitle={"Sign in with your email and password"}
-        />
         <FormInput
           label={"Email"}
           id={"emailSignin"}
@@ -65,12 +70,13 @@ const Signin = () => {
           name={"password"}
           value={password}
         />
-        <Button type="submit">Sign In</Button>
+        <div className="buttons-container">
+          <Button type="submit">Sign In</Button>
+          <Button buttonType={"google"} onClick={signInWithGoogle}>
+            Google Signin
+          </Button>
+        </div>
       </form>
-
-      <Button buttonType={"google"} onClick={signInWithGoogle}>
-        Sign in with Google
-      </Button>
     </div>
   );
 };

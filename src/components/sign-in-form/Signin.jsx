@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Signin.scss"
+import "./Signin.scss";
 import Button from "../button/Button";
 import HeaderSigninSignup from "../header-signin-signup/HeaderSigninSignup";
 import FormInput from "../form-input/FormInput";
@@ -43,7 +43,8 @@ const Signin = () => {
       resetFields();
     } catch (error) {
       if (error.code) {
-        callSwal("Error occurs", `Error ${error.code}`, "error");
+        const newError = error.code.replace("auth/", "").replace(/-/g, " ");
+        callSwal("Error occurs", `Error ${newError}`, "error");
       }
     }
   };
@@ -60,6 +61,7 @@ const Signin = () => {
           type="email"
           onChange={handleChange}
           name={"email"}
+          required={true}
           value={email}
         />
         <FormInput
@@ -67,12 +69,13 @@ const Signin = () => {
           id={"passwordSignin"}
           type="password"
           onChange={handleChange}
+          required={true}
           name={"password"}
           value={password}
         />
         <div className="buttons-container">
           <Button type="submit">Sign In</Button>
-          <Button buttonType={"google"} onClick={signInWithGoogle}>
+          <Button buttonType={"google"} type="button" onClick={signInWithGoogle}>
             Google Signin
           </Button>
         </div>

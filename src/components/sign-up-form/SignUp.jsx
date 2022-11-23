@@ -63,6 +63,7 @@ const SignUp = () => {
       <form onSubmit={handleSubmit}>
         <FormInput
           label={"Display Name"}
+          required={true}
           id={"displayName"}
           type="text"
           onChange={handleChange}
@@ -71,6 +72,7 @@ const SignUp = () => {
         />
         <FormInput
           label={"Email"}
+          required={true}
           id={"email"}
           type="email"
           onChange={handleChange}
@@ -79,6 +81,7 @@ const SignUp = () => {
         />
         <FormInput
           label={"Password"}
+          required={true}
           id={"password"}
           type="password"
           onChange={handleChange}
@@ -87,6 +90,7 @@ const SignUp = () => {
         />
         <FormInput
           label={"Confirm Password"}
+          required={true}
           id={"confirmPassword"}
           type="password"
           onChange={handleChange}

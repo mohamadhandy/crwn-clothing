@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
@@ -7,7 +7,6 @@ import { callSwal } from "../../utils/sweetalert/sweetalert";
 import Button from "../button/Button";
 import FormInput from "../form-input/FormInput";
 import HeaderSigninSignup from "../header-signin-signup/HeaderSigninSignup";
-import { UserContext } from "../../contexts/UserContext";
 import "./Signup.scss";
 
 const defaultFormFields = {
@@ -19,7 +18,6 @@ const defaultFormFields = {
 const SignUp = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
-  const { setCurrentUser } = useContext(UserContext)
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -42,7 +40,6 @@ const SignUp = () => {
         `Welcome ${email} to crwn clothing`,
         "success"
       );
-      setCurrentUser(user)
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         callSwal("Error", `Email already in use`, "error");

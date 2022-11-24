@@ -1,15 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import "./Signin.scss";
 import Button from "../button/Button";
 import HeaderSigninSignup from "../header-signin-signup/HeaderSigninSignup";
 import FormInput from "../form-input/FormInput";
 import {
   signInWithGooglePopup,
-  createUserDocumentFromAuth,
   signInUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase";
 import { callSwal } from "../../utils/sweetalert/sweetalert";
-import { UserContext } from "../../contexts/UserContext";
 
 const defaultSigninFields = {
   email: "",
@@ -19,13 +17,11 @@ const defaultSigninFields = {
 const Signin = () => {
   const [signInFields, setSigninFields] = useState(defaultSigninFields);
   const { email, password } = signInFields;
-  const { setCurrentUser } = useContext(UserContext);
   const resetFields = () => {
     setSigninFields(defaultSigninFields);
   };
   const signInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
+    await signInWithGooglePopup();
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,7 +38,6 @@ const Signin = () => {
           "success"
         );
       }
-      setCurrentUser(user);
       resetFields();
     } catch (error) {
       if (error.code) {

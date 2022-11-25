@@ -17,7 +17,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     // stop this onAuthStateChangedListener to prevent memory leak
     const unsubscribe = onAuthStateChangedListener((user) => {
-      console.log("user", user);
+      // console.log("user", user);
       if (user) {
         createUserDocumentFromAuth(user);
       }

@@ -6,10 +6,14 @@ import "./CartIcon.scss";
 const CartIcon = () => {
   const { toggle, setToggle, cartItems } = useContext(CartContext);
   const handleClick = () => setToggle(!toggle);
+  const cartCount = cartItems.reduce(
+    (total, cartItem) => total + cartItem.quantity,
+    0
+  );
   return (
     <div className="cart-icon-container" onClick={handleClick}>
       <ShoppingIcon className="shopping-icon" />
-      <span className="item-count">{ cartItems.length > 0 ? cartItems.length : 0 }</span>
+      <span className="item-count">{cartCount}</span>
     </div>
   );
 };

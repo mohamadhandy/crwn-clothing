@@ -4,12 +4,15 @@ import { CartContext } from "../../contexts/CartContext";
 
 const CheckoutItem = ({ cartItem }) => {
   const { name, price, quantity, imageUrl } = cartItem;
-  const { removeItemFromCart, addItemToCart } = useContext(CartContext);
+  const { removeItemFromCart, addItemToCart, decreaseItemQty } = useContext(CartContext);
   const handleRemove = () => {
     removeItemFromCart(cartItem);
   };
   const handleIncreaseQty = () => {
     addItemToCart(cartItem);
+  }
+  const handleDecreaseQty = () => {
+    decreaseItemQty(cartItem);
   }
   return (
     <div className="checkout-item-container">
@@ -18,7 +21,7 @@ const CheckoutItem = ({ cartItem }) => {
       </div>
       <span className="name"> {name} </span>
       <span className="quantity">
-        <div className="arrow">&#10094;</div>
+        <div className="arrow" onClick={handleDecreaseQty}>&#10094;</div>
         <span className="value">{quantity}</span>
         <div className="arrow" onClick={handleIncreaseQty}>&#10095;</div>
       </span>

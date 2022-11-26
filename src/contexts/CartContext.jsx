@@ -17,6 +17,20 @@ const addCartItem = (cartItems, productToAdd) => {
   return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
 
+const decreaseQty = (cartItems, product) => {
+  const item = cartItems.find((cartItem) => cartItem.id === product.id);
+  const index = cartItems.findIndex((cartItem) => cartItem.id === product.id);
+  if (item.quantity - 1 > 0) {
+    return [
+      ...cartItems.slice(0, index),
+      { ...cartItems[index], quantity: cartItems[index].quantity - 1 },
+      ...cartItems.slice(index + 1),
+    ];
+  } else {
+    return removeCartItem(cartItems, product);
+  }
+};
+
 const removeCartItem = (cartItems, product) => {
   return cartItems.filter((cartItem) => cartItem.id !== product.id);
 };
@@ -27,6 +41,7 @@ export const CartContext = createContext({
   cartItems: [],
   addItemToCart: () => {},
   removeCartItem: () => {},
+  decreaseQty: () => {},
 });
 
 export const CartProvider = ({ children }) => {
@@ -38,6 +53,16 @@ export const CartProvider = ({ children }) => {
   const removeItemFromCart = (product) => {
     setCartItems(removeCartItem(cartItems, product));
   };
-  const value = { toggle, setToggle, addItemToCart, cartItems, removeItemFromCart };
+  const decreaseItemQty = (product) => {
+    setCartItems(decreaseQty(cartItems, product));
+  };
+  const value = {
+    toggle,
+    setToggle,
+    addItemToCart,
+    cartItems,
+    removeItemFromCart,
+    decreaseItemQty,
+  };
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };

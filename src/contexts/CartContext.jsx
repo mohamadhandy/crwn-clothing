@@ -17,11 +17,16 @@ const addCartItem = (cartItems, productToAdd) => {
   return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
 
+const removeCartItem = (cartItems, product) => {
+  return cartItems.filter((cartItem) => cartItem.id !== product.id);
+};
+
 export const CartContext = createContext({
   toggle: false,
   setToggle: () => {},
   cartItems: [],
   addItemToCart: () => {},
+  removeCartItem: () => {},
 });
 
 export const CartProvider = ({ children }) => {
@@ -30,6 +35,9 @@ export const CartProvider = ({ children }) => {
   const addItemToCart = (productToAdd) => {
     setCartItems(addCartItem(cartItems, productToAdd));
   };
-  const value = { toggle, setToggle, addItemToCart, cartItems };
+  const removeItemFromCart = (product) => {
+    setCartItems(removeCartItem(cartItems, product));
+  };
+  const value = { toggle, setToggle, addItemToCart, cartItems, removeItemFromCart };
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };

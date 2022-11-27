@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 // helper function (bisa ini fungsinya)
 const addCartItem = (cartItems, productToAdd) => {
@@ -47,11 +47,13 @@ export const CartContext = createContext({
   addItemToCart: () => {},
   removeCartItem: () => {},
   decreaseQty: () => {},
+  total: 0,
 });
 
 export const CartProvider = ({ children }) => {
   const [toggle, setToggle] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [cartTotal, setCartTotal] = useState(0);
   const addItemToCart = (productToAdd) => {
     setCartItems(addCartItem(cartItems, productToAdd));
   };
@@ -61,6 +63,14 @@ export const CartProvider = ({ children }) => {
   const decreaseItemQty = (product) => {
     setCartItems(decreaseQty(cartItems, product));
   };
+  useEffect(() => {
+    const newTotal = cartItems.reduce(
+      (total, cartItem) => total + cartItem.quantity * cartItem.price,
+      0
+    );
+    setCartTotal(newTotal);
+  }, [cartItems]);
+
   const value = {
     toggle,
     setToggle,
@@ -68,6 +78,7 @@ export const CartProvider = ({ children }) => {
     cartItems,
     removeItemFromCart,
     decreaseItemQty,
+    cartTotal,
   };
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };

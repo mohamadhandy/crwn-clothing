@@ -18,17 +18,22 @@ const addCartItem = (cartItems, productToAdd) => {
 };
 
 const decreaseQty = (cartItems, product) => {
-  const item = cartItems.find((cartItem) => cartItem.id === product.id);
-  const index = cartItems.findIndex((cartItem) => cartItem.id === product.id);
-  if (item.quantity - 1 > 0) {
-    return [
-      ...cartItems.slice(0, index),
-      { ...cartItems[index], quantity: cartItems[index].quantity - 1 },
-      ...cartItems.slice(index + 1),
-    ];
-  } else {
-    return removeCartItem(cartItems, product);
+  // find the cart item to remove
+  const existingCartItem = cartItems.find(
+    (cartItem) => cartItem.id === product.id
+  );
+
+  // check if is quantity equal to 1, if it is remove that item from the cart
+  if (existingCartItem.quantity === 1) {
+    return cartItems.filter((cartItem) => cartItem.id !== product.id);
   }
+
+  // return back cartItems with matching cart item with quantity - 1
+  return cartItems.map((cartItem) =>
+    cartItem.id === product.id
+      ? { ...cartItem, quantity: cartItem.quantity - 1 }
+      : cartItem
+  );
 };
 
 const removeCartItem = (cartItems, product) => {

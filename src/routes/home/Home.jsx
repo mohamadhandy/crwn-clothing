@@ -5,17 +5,20 @@ import { CategoriesContext } from "../../contexts/CategoriesContext";
 
 const Home = () => {
   const { categoriesMap } = useContext(CategoriesContext);
-  console.log("obj", Object.keys(categoriesMap))
-  // const { products } = useContext(CategoriesContext);
-  // const categories = Object.entries(products).map((e) => ({ [e[0]]: e[1] }));
-  // console.log("cate", categories);
-  // return (
-  //   <>
-  //     {  }
-  //     <Categories categories={products} />
-  //     <Outlet />
-  //   </>
-  // );
+  const categories = [];
+  Object.entries(categoriesMap).forEach((category) => {
+    const newObject = {
+      title: category[0],
+      imageUrl: category[1][0].imageUrl,
+    };
+    categories.push(newObject);
+  });
+  return (
+    <>
+      <Categories categories={categories} />
+      <Outlet />
+    </>
+  );
 };
 
 export default Home;

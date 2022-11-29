@@ -2,12 +2,12 @@ import "./CategoryItem.scss";
 import React from "react";
 
 const CategoryItem = ({ category: { title, imageUrl } }) => (
-  <div className="category-container">
+  <div className="directory-item-container">
     <div
       className="background-image"
       style={{ backgroundImage: `url(${imageUrl})` }}
     ></div>
-    <div key={title} className="category-body-container">
+    <div key={title} className="body">
       <h2>{title}</h2>
       <p>Shop Now</p>
     </div>

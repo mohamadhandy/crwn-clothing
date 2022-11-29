@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Signin.scss";
-import Button from "../button/Button";
+import Button, { BUTTON_TYPES_CLASSESS } from "../button/Button";
 import HeaderSigninSignup from "../header-signin-signup/HeaderSigninSignup";
 import FormInput from "../form-input/FormInput";
 import {
@@ -74,7 +74,7 @@ const Signin = () => {
         <div className="buttons-container">
           <Button type="submit">Sign In</Button>
           <Button
-            buttonType={"google"}
+            buttonType={BUTTON_TYPES_CLASSESS.google}
             type="button"
             onClick={signInWithGoogle}
           >

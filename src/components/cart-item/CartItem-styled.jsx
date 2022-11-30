@@ -23,3 +23,13 @@ export const ItemDetails = styled.div`
     font-size: 16px;
   }
 `;
+
+export const ItemName = styled.span`
+  .name {
+    font-size: 16px;
+  }
+
+  .price {
+    font-size: 16px;
+  }
+`;

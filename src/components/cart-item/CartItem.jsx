@@ -1,5 +1,5 @@
 import React from "react";
-import { CartItemContainer, ItemDetails } from "./CartItem-styled";
+import { CartItemContainer, ItemDetails, ItemName } from "./CartItem-styled";
 
 const CartItem = ({ cartItem }) => {
   const { name, price, quantity, imageUrl } = cartItem;
@@ -7,10 +7,8 @@ const CartItem = ({ cartItem }) => {
     <CartItemContainer>
       <img src={imageUrl} alt="product cart" />
       <ItemDetails>
-        <span className="name">{name}</span>
-        <span className="price">
-          {quantity} x ${price}
-        </span>
+        <ItemName>{name}</ItemName>
+        <ItemName>{quantity} x ${price}</ItemName>
       </ItemDetails>
     </CartItemContainer>
   );

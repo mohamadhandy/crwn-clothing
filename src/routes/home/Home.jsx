@@ -10,6 +10,7 @@ const Home = () => {
     const newObject = {
       title: category[0],
       imageUrl: category[1][0].imageUrl,
+      route: `shop/${category[0].toLowerCase()}`,
     };
     categories.push(newObject);
   });
